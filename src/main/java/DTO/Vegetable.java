@@ -1,6 +1,7 @@
 
-package hibernatebanhang.DAL;
+package DTO;
 
+import DTO.Category;
 import java.util.List;
 import javax.persistence.*;
 import lombok.Data;

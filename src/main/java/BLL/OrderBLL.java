@@ -4,7 +4,7 @@
  */
 package BLL;
 
-import hibernatebanhang.DAL.Order;
+import DTO.Order;
 import hibernatebanhang.DAL.OrderDAL;
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class OrderBLL {
         for(int i = 0; i < rows; i++)
         {
             obj[i][0] = list.get(i).getOrderID();
-            obj[i][1] = list.get(i).getCustomerID();
+            
             obj[i][2] = list.get(i).getDate();
             obj[i][3] = list.get(i).getTotal();
             obj[i][4] = list.get(i).getNote();

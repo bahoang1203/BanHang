@@ -1,6 +1,7 @@
 
 package hibernatebanhang.DAL;
 
+import DTO.Vegetable;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Session;

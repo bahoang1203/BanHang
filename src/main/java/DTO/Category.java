@@ -1,5 +1,5 @@
 
-package hibernatebanhang.DAL;
+package DTO;
 import java.util.List;
 import javax.persistence.*;
 import javax.persistence.Table;

@@ -4,6 +4,7 @@
  */
 package hibernatebanhang.DAL;
 
+import DTO.OrderDetail;
 import java.util.List;
 import org.hibernate.Session;
 

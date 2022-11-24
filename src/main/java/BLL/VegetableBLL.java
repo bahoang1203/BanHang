@@ -4,7 +4,7 @@
  */
 package BLL;
 
-import hibernatebanhang.DAL.Vegetable;
+import DTO.Vegetable;
 import hibernatebanhang.DAL.VegetableDAL;
 import java.util.List;
 

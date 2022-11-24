@@ -1,5 +1,6 @@
 package hibernatebanhang.DAL;
 
+import DTO.Category;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -16,8 +17,11 @@ public class CategoryDAL {
         session.beginTransaction();
         category = session.createQuery("FROM Category", Category.class).list();
         session.getTransaction().commit();
+        for(Category x : category){
+            System.out.println(x.getCatagoryID());
+        }
         return category;
-
+        
     }
     public Category getCategory(int CategoryID)
     {
@@ -39,5 +43,8 @@ public class CategoryDAL {
     {
         session.delete(c);
     }
-
+    public static void main(String args[]){
+        CategoryDAL dal = new CategoryDAL();
+        dal.loadCategory();
+    }
 }

@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import hibernatebanhang.DAL.Category;
+import DTO.Category;
 import javax.swing.DefaultComboBoxModel;
 
 /**
