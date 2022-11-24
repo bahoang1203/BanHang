@@ -24,11 +24,13 @@ public class Order {
     private String Date;
     @Column 
     private int Total;
+    @Column
+    private String Note;
     
     @ManyToOne
     @JoinColumn(name="CustomerID")
-    private int CustomerID;
-    @ManyToMany(mappedBy="Order")
-    private List vegetable;
+    private Customer customers;
+//    @ManyToMany(mappedBy="Order")
+//    private List vegetable;
     
 }

@@ -31,10 +31,10 @@ public class Vegetable {
     @JoinColumn(name="CatagoryID")
     private Category catagory;
     
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "OrderDetail", 
-            joinColumns = {@JoinColumn(name="VegetableID", nullable = false,updatable = false)}, 
-            inverseJoinColumns = {@JoinColumn(name="OrderID",nullable = false, updatable = false)})
-    private List order;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "OrderDetail", 
+//            joinColumns = {@JoinColumn(name="VegetableID", nullable = false,updatable = false)}, 
+//            inverseJoinColumns = {@JoinColumn(name="OrderID",nullable = false, updatable = false)})
+//    private List order;
     
 }
