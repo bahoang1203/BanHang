@@ -33,11 +33,6 @@ public class ThongKeDoanhThu extends javax.swing.JFrame {
     public int getsoluongorder(){
         return soluongorder;
     }
-    public String summary(){
-        String tongket = "";
-        tongket = "Tong doanh thu: "+ this.gettongdoanhthu()+",So luong hoa don: "+this.getsoluongorder();
-        return tongket;
-    }
     /**
      * Creates new form ThongKeDoanhThu
      */
@@ -48,7 +43,8 @@ public class ThongKeDoanhThu extends javax.swing.JFrame {
     }
     private void setDataToChar() {
         DefaultCategoryDataset dataset = this.createDataset();
-        JFreeChart barChart = ChartFactory.createBarChart("Biểu đồ thống kê doanh thu".toUpperCase(), "Thời Gian (tháng)", "Doanh Thu", dataset);
+        JFreeChart barChart = ChartFactory.createBarChart("Biểu đồ thống kê doanh thu".toUpperCase(), 
+                "Thời Gian (tháng)", "Doanh Thu", dataset);
             
         CategoryItemRenderer renderer = ((CategoryPlot)barChart.getPlot()).getRenderer();
         renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
@@ -67,7 +63,8 @@ public class ThongKeDoanhThu extends javax.swing.JFrame {
     DefaultCategoryDataset createDataset() {
         List<Order> list_order = this.orderbll.loadOrder();
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        Map<LocalDate, List<Order>> byMonth = list_order.stream().collect(Collectors.groupingBy(order -> order.getDate().withDayOfMonth(1)));
+        Map<LocalDate, List<Order>> byMonth = list_order.stream().collect(Collectors.groupingBy
+        (order -> order.getDate().withDayOfMonth(1)));
         for(Map.Entry<LocalDate, List<Order>> entry:byMonth.entrySet()){
             LocalDate key = entry.getKey();
             List<Order> val = entry.getValue();

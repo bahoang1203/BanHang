@@ -23,9 +23,6 @@ public class OrderDAL {
         session.beginTransaction();
         listorder = (ArrayList<Order>) session.createQuery("From Order", Order.class).list();
         session.getTransaction().commit();
-        for(Order x : listorder){
-            System.out.println(x.getDate());
-        }
         return listorder;
     }
     //select category0_.CatagoryID as Catagory1_0_, category0_.Description as Descript2_0_, category0_.Name as Name3_0_ from Category category0_

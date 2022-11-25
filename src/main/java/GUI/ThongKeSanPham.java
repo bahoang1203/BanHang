@@ -27,29 +27,19 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class ThongKeSanPham extends javax.swing.JFrame {
     private OrderDetailBLL odbll;
-//    private VegetableBLL vg;
     private int soLuongSanPhamBan=0;
     private int soLuongSanPham=0;
-    private String hangBanChayNhat;
     public int getSoLuongSanPhamBan() {
         return soLuongSanPhamBan;
     }
-
     public int getSoLuongSanPham() {
         return soLuongSanPham;
-    }
-    public String summary() {
-        String tongKet="";
-        tongKet = "Số Lượng Sản Phẩm Bán: " + this.getSoLuongSanPhamBan()+"/"+this.getSoLuongSanPham()+".   Hãng bán chạy nhất: "+this.hangBanChayNhat;
-        return tongKet;
     }
     /**
      * Creates new form ThongKeSanPham
      */
     public ThongKeSanPham() {
         odbll = new OrderDetailBLL();
-//        vg = new VegetableBLL();
-//        List<Vegetable> list = vg.loadVeg();
         initComponents();
         this.setDataToChart();
     }
@@ -143,7 +133,8 @@ public class ThongKeSanPham extends javax.swing.JFrame {
         PiePlot plot = (PiePlot) pieChart.getPlot();
         plot.setSimpleLabels(true);
         
-        PieSectionLabelGenerator gen = new StandardPieSectionLabelGenerator("({2})", NumberFormat.getInstance(), NumberFormat.getPercentInstance());
+        PieSectionLabelGenerator gen = new StandardPieSectionLabelGenerator
+        ("({2})", NumberFormat.getInstance(), NumberFormat.getPercentInstance());
         plot.setLabelGenerator(gen);
         
         ChartPanel piePanel = new ChartPanel(pieChart);
@@ -155,6 +146,7 @@ public class ThongKeSanPham extends javax.swing.JFrame {
     }
     String convertToString(String str){
         switch(str){
+            //tạm làm vậy vì bối rối quá 
             case "1":return "Tomato";
             case "2":return "Potato";
             case "3":return "Apple";
@@ -170,28 +162,22 @@ public class ThongKeSanPham extends javax.swing.JFrame {
 
     private DefaultPieDataset createPieDataset() {
         List<OrderDetail> list_od=this.odbll.loadOrderDetail();
-//        List<Vegetable> list_veg=this.vg.loadVeg();
         DefaultPieDataset dataset = new DefaultPieDataset();
         int max=-1;
-        Map<String, List<OrderDetail>> bymaod =  list_od.stream().collect(Collectors.groupingBy(od -> String.valueOf(od.getVegetableID())));
-//        Map<String, List<Vegetable>> bymaSP = list_veg.stream().collect(Collectors.groupingBy(veg -> veg.getVegetableName()));
+        Map<String, List<OrderDetail>> bymaod =  list_od.stream().collect
+        (Collectors.groupingBy(od -> String.valueOf(od.getVegetableID())));
         for(Map.Entry<String, List<OrderDetail>> entry : bymaod.entrySet()){
             String key = entry.getKey();
             List<OrderDetail> val = entry.getValue();
-//            List<Vegetable> listveg = bymaSP.get(key);
             int soLuongBan = 0;
             int soLuong = 0;
             for (OrderDetail od : val) {
                 soLuongBan += od.getQuantity();
             }
-//            for (Vegetable veg : listveg) {
-//                System.out.println(veg.getVegetableName());
-//            }
             this.soLuongSanPham += soLuong;
             this.soLuongSanPhamBan += soLuongBan;
             dataset.setValue(convertToString (key), soLuongBan);
         }
-        
         return dataset;
     }
 }
