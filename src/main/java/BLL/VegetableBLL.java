@@ -5,7 +5,7 @@
 package BLL;
 
 import DTO.Vegetable;
-import hibernatebanhang.DAL.VegetableDAL;
+import DAL.VegetableDAL;
 import java.util.List;
 
 /**
@@ -14,12 +14,14 @@ import java.util.List;
  */
 public class VegetableBLL {
 
-  private  VegetableDAL vegDAL;
-  
-  public VegetableBLL()
-  {
-      vegDAL = new VegetableDAL();
-  }
+    private  VegetableDAL vegDAL= new VegetableDAL();
+
+    public List loadVeg()
+      {
+        List list;
+        list = vegDAL.getVegetable();
+        return list;
+      }
   
   public Object[][] converVegetable(List<Vegetable> list)
   {

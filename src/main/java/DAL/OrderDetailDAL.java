@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package hibernatebanhang.DAL;
+package DAL;
 
 import DTO.OrderDetail;
 import java.util.List;
@@ -17,7 +17,7 @@ public class OrderDetailDAL {
     public OrderDetailDAL(){
     session = HibernateUtils.getSessionFactory().openSession();
     }
-    public List loadOderDetail(){
+    public List loadOrderDetail(){
         List<OrderDetail> orderdetail;
         session.beginTransaction();
         orderdetail = session.createQuery("From OrderDetail", OrderDetail.class).list();

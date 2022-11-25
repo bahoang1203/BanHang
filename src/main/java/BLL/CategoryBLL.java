@@ -2,7 +2,7 @@
 package BLL;
 
 import DTO.Category;
-import hibernatebanhang.DAL.CategoryDAL;
+import DAL.CategoryDAL;
 
 import java.util.List;
 

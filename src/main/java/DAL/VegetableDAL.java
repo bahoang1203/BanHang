@@ -1,5 +1,5 @@
 
-package hibernatebanhang.DAL;
+package DAL;
 
 import DTO.Vegetable;
 import java.util.Iterator;
@@ -14,6 +14,13 @@ public class VegetableDAL {
     public VegetableDAL()
     {
         session = HibernateUtils.getSessionFactory().openSession();
+    }
+    public List getVegetable(){
+         List<Vegetable> veg;
+         session.beginTransaction();
+         veg = session.createQuery("FROM Vegetable", Vegetable.class).list();
+         session.getTransaction().commit();
+         return veg;
     }
     public Vegetable getVegetable(int vegetableID)
     {

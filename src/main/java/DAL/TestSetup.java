@@ -1,5 +1,5 @@
 
-package hibernatebanhang.DAL;
+package DAL;
 
 /**
  *

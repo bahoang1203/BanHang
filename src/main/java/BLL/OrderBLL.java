@@ -5,7 +5,8 @@
 package BLL;
 
 import DTO.Order;
-import hibernatebanhang.DAL.OrderDAL;
+import DAL.OrderDAL;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,10 +15,8 @@ import java.util.List;
  * @author HoangLAP
  */
 public class OrderBLL {
-    private OrderDAL orderDAL;
-    public OrderBLL(){
-        orderDAL = new OrderDAL();
-    }
+    private OrderDAL orderDAL= new OrderDAL();
+    
     public List loadOrder(){
         List list;
         list = orderDAL.loadOrder();
@@ -26,16 +25,23 @@ public class OrderBLL {
     public Object[][] convertList(List<Order> list)
     {
         int rows = list.size();
-        int cols = 4;
+        int cols = 5;
         Object[][] obj = new Object[rows][cols];
         for(int i = 0; i < rows; i++)
         {
             obj[i][0] = list.get(i).getOrderID();
-            
+            obj[i][1] = list.get(i).getCustomerID();
             obj[i][2] = list.get(i).getDate();
             obj[i][3] = list.get(i).getTotal();
             obj[i][4] = list.get(i).getNote();
         }
         return obj;
     }
+//    ArrayList<Order> listorder = new ArrayList<>();
+//    public void read(){
+//        listorder = orderDAL.loadOrder();
+//    }
+//    public ArrayList<Order> getListOrder(){        
+//        return listorder;
+//    }
 }

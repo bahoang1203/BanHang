@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package hibernatebanhang.DAL;
+package DAL;
 
 
 import DTO.Order;
 import DTO.Category;
 import DTO.Customers;
 import DTO.OrderDetail;
+import DTO.Vegetable;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -50,7 +51,7 @@ public class HibernateUtils {
             // Begin a unit of work
             session.beginTransaction();
 //            List<Category> category = session.createQuery("FROM Category", Category.class).list();
-            List<OrderDetail> order = session.createQuery("FROM OrderDetail", OrderDetail.class).list();
+            List<Vegetable> order = session.createQuery("FROM Vegetable", Vegetable.class).list();
 //             List<Customers> cus = session.createQuery("FROM Customers", Customers.class).list();
             //xem danh sách
 //            category.forEach(System.out::println);

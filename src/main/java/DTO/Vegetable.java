@@ -16,21 +16,70 @@ import lombok.Data;
 public class Vegetable {
     
     @Id
+    @Column(name="VegetableID")
     private int VegetableID;
-    @Column 
+	public int getVegetableID() {
+		return VegetableID;
+	}
+
+	public void setVegetableID(int vegetableID) {
+		VegetableID = vegetableID;
+	}
+    @Column(name="VegetableName")
     private String VegetableName;
-    @Column
+    public String getVegetableName() {
+		return VegetableName;
+	}
+
+	public void setVegetableName(String vegetableName) {
+		VegetableName = vegetableName;
+	}
+    @Column(name="Unit")
     private String Unit;
-    @Column
+    public String getUnit() {
+		return Unit;
+	}
+
+	public void setUnit(String unit) {
+		Unit = unit;
+	}
+    @Column(name="Amount")
     private int Amount;
-    @Column 
+    public int getAmount() {
+		return Amount;
+	}
+
+	public void setAmount(int amount) {
+		Amount = amount;
+	}
+    @Column (name="Image")
     private String Image;
-    @Column
+    public String getImage() {
+		return Image;
+	}
+
+	public void setImage(String image) {
+		Image = image;
+	}
+    @Column(name="Price")
     private Double Price;
-    
+    public Double getPrice() {
+		return Price;
+	}
+
+	public void setPrice(Double price) {
+		Price = price;
+	}
     @ManyToOne
     @JoinColumn(name="CatagoryID")
     private Category catagory;
+    public Category getCatagory() {
+		return catagory;
+	}
+
+	public void setCatagory(Category catagory) {
+		this.catagory = catagory;
+	}
     
 //    @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(name = "OrderDetail", 

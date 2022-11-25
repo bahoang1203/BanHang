@@ -4,19 +4,86 @@
  */
 package GUI;
 
+import BLL.OrderBLL;
+import DTO.Order;
+import java.awt.CardLayout;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.jfree.chart.*;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.ui.TextAnchor;
+import org.jfree.data.category.DefaultCategoryDataset;
 /**
  *
  * @author HoangLAP
  */
 public class ThongKeDoanhThu extends javax.swing.JFrame {
-
+    private OrderBLL orderbll;
+    private float tongdoanhthu;
+    private int soluongorder;
+    public float gettongdoanhthu(){
+        return tongdoanhthu;
+    }
+    public int getsoluongorder(){
+        return soluongorder;
+    }
+    public String summary(){
+        String tongket = "";
+        tongket = "Tong doanh thu: "+ this.gettongdoanhthu()+",So luong hoa don: "+this.getsoluongorder();
+        return tongket;
+    }
     /**
      * Creates new form ThongKeDoanhThu
      */
     public ThongKeDoanhThu() {
+        orderbll = new OrderBLL();
         initComponents();
+        this.setDataToChar();
     }
+    private void setDataToChar() {
+        DefaultCategoryDataset dataset = this.createDataset();
+        JFreeChart barChart = ChartFactory.createBarChart("Biểu đồ thống kê doanh thu".toUpperCase(), "Thời Gian (tháng)", "Doanh Thu", dataset);
+            
+        CategoryItemRenderer renderer = ((CategoryPlot)barChart.getPlot()).getRenderer();
+        renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+        renderer.setDefaultItemLabelsVisible(true);
+        ItemLabelPosition position = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, 
+                TextAnchor.BASELINE_CENTER);
+        renderer.setDefaultPositiveItemLabelPosition(position); 
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        
+        panel.setLayout(new CardLayout());
+        panel.add(chartPanel);
+        panel.validate();
+        panel.repaint();
+        }
 
+    DefaultCategoryDataset createDataset() {
+        List<Order> list_order = this.orderbll.loadOrder();
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        Map<LocalDate, List<Order>> byMonth = list_order.stream().collect(Collectors.groupingBy(order -> order.getDate().withDayOfMonth(1)));
+        for(Map.Entry<LocalDate, List<Order>> entry:byMonth.entrySet()){
+            LocalDate key = entry.getKey();
+            List<Order> val = entry.getValue();
+            int soLuong = 0;
+            float doanhThuThang = 0;
+            for(Order x : val){
+                doanhThuThang+=x.getTotal();
+                soLuong++;
+            }
+            this.soluongorder += soLuong;
+            this.tongdoanhthu += doanhThuThang;
+            dataset.addValue(doanhThuThang, "Tổng Tiền (nghìn)", key.getMonth());
+            dataset.addValue(soLuong, "Số Lượng Hoá Đơn", key.getMonth());
+        }
+        return dataset;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,17 +93,36 @@ public class ThongKeDoanhThu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panel = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 920, Short.MAX_VALUE)
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 588, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -78,5 +164,6 @@ public class ThongKeDoanhThu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 }
